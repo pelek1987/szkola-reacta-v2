@@ -16,12 +16,35 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    label: "Click Me!",
+    label: "Primary",
   },
 };
 
-// export const Secondary: Story = {
-//   args: {
-//     label: 'Button',
-//   },
-// };
+export const Secondary: Story = {
+  args: {
+    label: "Seconadary",
+    className:
+      "bg-white hover:bg-white text-blue-500 hover❣️text-blue-600 border-blue-500 hover:border-blue-600",
+  },
+};
+
+export const Success: Story = {
+  args: {
+    label: "Success",
+    className: "bg-green-500 hover:bg-green-600",
+  },
+};
+
+export const Danger: Story = {
+  args: {
+    label: "Danger",
+    className: "bg-red-500 hover:bg-red-600",
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    label: "Disabled",
+    disabled: true,
+  },
+};
