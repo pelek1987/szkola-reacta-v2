@@ -1,13 +1,11 @@
-import { type FormEventHandler, useRef, useEffect } from "react";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../ui";
 import { Input } from "../../ui/Input/Input";
-import { useForm, type SubmitHandler } from "react-hook-form";
-
-type FormData = {
-  email: string;
-  password: string;
-  language: string;
-};
+import {
+  type SignUpFormData,
+  formValidationSchema,
+} from "./formValidationSchema";
 
 export const ReactHookSignUpForm = () => {
   const {
@@ -15,9 +13,11 @@ export const ReactHookSignUpForm = () => {
     watch,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormData>();
+  } = useForm<SignUpFormData>({
+    resolver: zodResolver(formValidationSchema),
+  });
 
-  const handleSignUpFormSubmit: SubmitHandler<FormData> = (data) => {
+  const handleSignUpFormSubmit: SubmitHandler<SignUpFormData> = (data) => {
     console.log(data);
   };
 
@@ -30,27 +30,20 @@ export const ReactHookSignUpForm = () => {
       <Input
         label="E-mail: "
         type="email"
-        {...register("email", {
-          required: "E-mail is required",
-        })}
+        {...register("email")}
+        error={errors.email}
       />
-      {errors && errors.email && (
-        <p className="text-sm text-red-500">{errors.email.message}</p>
-      )}
       <Input
         label="Password: "
         type="password"
-        {...register("password", {
-          required: "Password is required",
-        })}
+        {...register("password")}
+        error={errors.password}
       />
-      {errors && errors.password && (
-        <p className="text-sm text-red-500">{errors.password.message}</p>
-      )}
-      <Input label="Language: " {...register("language")} />
-      {errors && errors.language && (
-        <p className="text-sm text-red-500">{errors.language.message}</p>
-      )}
+      <Input
+        label="Language: "
+        {...register("language")}
+        error={errors.language}
+      />
       <Button label="Sign up" type="submit" />
     </form>
   );
