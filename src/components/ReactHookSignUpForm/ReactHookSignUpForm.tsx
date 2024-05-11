@@ -17,12 +17,6 @@ export const ReactHookSignUpForm = () => {
     handleSubmit,
   } = useForm<FormData>();
 
-  // useEffect(() => {
-  //   if (emailField.current) {
-  //     emailField.current.focus();
-  //   }
-  // }, []);
-
   const handleSignUpFormSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
   };
@@ -33,11 +27,23 @@ export const ReactHookSignUpForm = () => {
         <p>E-mail: {watch("email")}</p>
         <p>Language: {watch("language")}</p>
       </div>
-      <Input label="E-mail: " type="email" {...register("email")} />
+      <Input
+        label="E-mail: "
+        type="email"
+        {...register("email", {
+          required: "E-mail is required",
+        })}
+      />
       {errors && errors.email && (
         <p className="text-sm text-red-500">{errors.email.message}</p>
       )}
-      <Input label="Password: " type="password" {...register("password")} />
+      <Input
+        label="Password: "
+        type="password"
+        {...register("password", {
+          required: "Password is required",
+        })}
+      />
       {errors && errors.password && (
         <p className="text-sm text-red-500">{errors.password.message}</p>
       )}
