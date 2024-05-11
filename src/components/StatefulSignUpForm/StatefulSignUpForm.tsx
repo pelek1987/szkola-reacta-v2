@@ -1,4 +1,8 @@
-import { type ChangeEventHandler, useState, FormEventHandler } from "react";
+import {
+  type ChangeEventHandler,
+  type FormEventHandler,
+  useState,
+} from "react";
 import { Button } from "../../ui";
 
 type FormData = {
