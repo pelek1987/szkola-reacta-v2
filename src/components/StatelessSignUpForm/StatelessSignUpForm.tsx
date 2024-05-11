@@ -1,5 +1,6 @@
 import { type FormEventHandler, useRef } from "react";
 import { Button } from "../../ui";
+import { Input } from "../../ui/Input/Input";
 
 type FormData = {
   email: string;
@@ -26,24 +27,9 @@ export const StatelessSignUpForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mb-2">
-        <label htmlFor="email" className="mr-2">
-          E-mail:
-        </label>
-        <input id="email" type="email" ref={emailField} />
-      </div>
-      <div className="mb-2">
-        <label htmlFor="password" className="mr-2">
-          Password:
-        </label>
-        <input id="password" type="password" ref={passwordField} />
-      </div>
-      <div className="mb-2">
-        <label htmlFor="language" className="mr-2">
-          Language:
-        </label>
-        <input id="language" ref={languageField} />
-      </div>
+      <Input label="E-mail: " type="email" ref={emailField} />
+      <Input label="Password: " type="password" ref={passwordField} />
+      <Input label="Language: " ref={languageField} />
       <Button label="Sign up" type="submit" />
     </form>
   );
