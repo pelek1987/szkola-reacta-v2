@@ -1,0 +1,1 @@
+export { ReactHookSignUpForm } from "./ReactHookSignUpForm";

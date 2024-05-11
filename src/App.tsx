@@ -1,4 +1,4 @@
-import { StatelessSignUpForm } from "./components";
+import { ReactHookSignUpForm } from "./components";
 // import { Button, Text } from "./ui";
 
 const App = () => {
@@ -8,7 +8,8 @@ const App = () => {
       <Text>Hola Amigos!</Text>
       <Button label="Click me" onClick={() => console.log("Button clicked!")} /> */}
       {/* <StatefulSignUpForm /> */}
-      <StatelessSignUpForm />
+      {/* <StatelessSignUpForm /> */}
+      <ReactHookSignUpForm />
     </>
   );
 };
