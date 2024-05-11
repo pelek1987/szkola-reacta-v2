@@ -1,4 +1,4 @@
-import { type FormEventHandler, useRef } from "react";
+import { type FormEventHandler, useRef, useEffect } from "react";
 import { Button } from "../../ui";
 import { Input } from "../../ui/Input/Input";
 
@@ -12,6 +12,12 @@ export const StatelessSignUpForm = () => {
   const emailField = useRef<HTMLInputElement>(null);
   const passwordField = useRef<HTMLInputElement>(null);
   const languageField = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (emailField.current) {
+      emailField.current.focus();
+    }
+  }, []);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
