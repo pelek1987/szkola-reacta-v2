@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { Theme, useThemeContext } from "../../context/Theme/ThemeContext";
+import {
+  Theme,
+  getMode,
+  useThemeContext,
+} from "../../context/Theme/ThemeContext";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 
 export const ThemeSwitcher = () => {
   const themeContext = useThemeContext();
-  const [theme, setTheme] = useState<Theme>(Theme.LIGHT);
+  const [theme, setTheme] = useState<Theme | null>(getMode());
 
   const handleClick = () => {
     themeContext.toggleTheme();

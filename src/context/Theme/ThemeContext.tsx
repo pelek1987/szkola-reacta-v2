@@ -1,10 +1,4 @@
-import {
-  MutableRefObject,
-  ReactNode,
-  createContext,
-  useContext,
-  useRef,
-} from "react";
+import { ReactNode, createContext, useContext, useEffect, useRef } from "react";
 
 const addDarkClass = () => document.body.classList.add("dark");
 const removeDarkClass = () => document.body.classList.remove("dark");
@@ -15,7 +9,7 @@ export enum Theme {
 }
 
 type ThemeContextType = {
-  theme: Theme;
+  theme: Theme | null;
   toggleTheme: () => void;
 };
 
@@ -33,19 +27,62 @@ export const useThemeContext = () => {
   return context;
 };
 
+export const getMode = () => {
+  if (window.matchMedia) {
+    const matchesDarkMode = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
+    return matchesDarkMode ? Theme.DARK : Theme.LIGHT;
+  }
+
+  return null;
+};
+
 const useTheme = () => {
-  const theme = useRef<Theme>(Theme.LIGHT);
+  const themeRef = useRef<Theme | null>(getMode());
+
+  let { current: theme } = themeRef;
+
   const toggleTheme = () => {
-    if (theme.current === Theme.LIGHT) {
+    if (theme === Theme.LIGHT) {
       addDarkClass();
-      theme.current = Theme.DARK;
+      theme = Theme.DARK;
     } else {
       removeDarkClass();
-      theme.current = Theme.LIGHT;
+      theme = Theme.LIGHT;
     }
   };
 
-  return { theme: theme.current, toggleTheme };
+  useEffect(() => {
+    const themeMode = getMode();
+    if (themeMode === Theme.DARK) {
+      addDarkClass();
+    } else {
+      removeDarkClass();
+    }
+
+    const handleSchemeChange = (e: MediaQueryListEvent) => {
+      if (e.matches) {
+        addDarkClass();
+      } else {
+        removeDarkClass();
+      }
+    };
+
+    let mediaQueries: MediaQueryList;
+
+    if (themeMode) {
+      mediaQueries = window.matchMedia("(prefers-color-scheme: dark)");
+      mediaQueries.addEventListener("change", handleSchemeChange);
+    }
+
+    return () => {
+      mediaQueries.removeEventListener("change", handleSchemeChange);
+    };
+  }, []);
+
+  return { theme, toggleTheme };
 };
 
 export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
