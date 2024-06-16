@@ -11,7 +11,7 @@ const AuthContext = createContext<null | AuthContextType>(null);
 
 const useAuth = (): AuthContextType => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const toggleValue = () => setIsLoggedIn(!isLoggedIn);
+  const toggleValue = () => setIsLoggedIn((prevState) => !prevState);
   const logIn = () => setIsLoggedIn(true);
   const logOut = () => setIsLoggedIn(false);
 
