@@ -1,1 +1,1 @@
-export * from "./AuthInfo";
+export { AuthInfo } from "./AuthInfo";

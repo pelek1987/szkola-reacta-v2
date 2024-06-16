@@ -5,7 +5,7 @@ export const AuthInfo = () => {
   return (
     <AuthContextProvider>
       <div>
-        <h1>Auth Info</h1>
+        <h1 className="dark:text-slate-200">Auth Info</h1>
         <AuthCredentials />
       </div>
     </AuthContextProvider>

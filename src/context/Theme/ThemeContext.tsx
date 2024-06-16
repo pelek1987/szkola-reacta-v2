@@ -6,13 +6,16 @@ import {
   useRef,
 } from "react";
 
-enum Theme {
+const addDarkClass = () => document.body.classList.add("dark");
+const removeDarkClass = () => document.body.classList.remove("dark");
+
+export enum Theme {
   LIGHT = "light",
   DARK = "dark",
 }
 
 type ThemeContextType = {
-  theme: MutableRefObject<Theme>;
+  theme: Theme;
   toggleTheme: () => void;
 };
 
@@ -33,10 +36,16 @@ export const useThemeContext = () => {
 const useTheme = () => {
   const theme = useRef<Theme>(Theme.LIGHT);
   const toggleTheme = () => {
-    theme.current = theme.current === Theme.LIGHT ? Theme.DARK : Theme.LIGHT;
+    if (theme.current === Theme.LIGHT) {
+      addDarkClass();
+      theme.current = Theme.DARK;
+    } else {
+      removeDarkClass();
+      theme.current = Theme.LIGHT;
+    }
   };
 
-  return { theme, toggleTheme };
+  return { theme: theme.current, toggleTheme };
 };
 
 export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
